@@ -4,12 +4,65 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SVModManager"
+        xmlns:module="clr-namespace:SVModManager.Module"
+        xmlns:viewmodel="clr-namespace:SVModManager.ViewModel"
+        xmlns:view="clr-namespace:SVModManager.View"
+        d:DataContext="{d:DesignInstance Type=viewmodel:NavigationVM}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="850"
+        Title="MainWindow" Height="700" Width="950"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None">
+        WindowStyle="None"
+        Background="Transparent">
     <Grid>
-    
+
+        <!--Main Window-->
+        <Border Background="{StaticResource DarkBackgroundBrush2}"
+                CornerRadius="10"  />
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="54"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid HorizontalAlignment="Center" Width="54" Grid.Column="0">
+                <Border Background="{StaticResource DarkBackgroundBrush1}" CornerRadius="10,0,0,10"/>
+                <Grid ButtonBase.Click="NaviBtn_Click">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Statics/Images/Icon1.png" Height="35" Grid.Row="1"/>
+                    <module:NaviBtn Style="{StaticResource NaviBtn}" Tag="/Statics/Images/cps_apps.png" x:Name="list_btn" IsChecked="True" Grid.Row="2" Checked="list_btn_Checked"/>
+                    <module:NaviBtn Style="{StaticResource NaviBtn}" Tag="/Statics/Images/download.png" x:Name="download_btn" Grid.Row="3"/>
+                    <module:NaviBtn Style="{StaticResource NaviBtn}" Tag="/Statics/Images/setting.png" x:Name="settings_btn" Grid.Row="5"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1">
+                <ContentControl x:Name="Pages" Content="{Binding CurrentView}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewmodel:ModListVM}">
+                            <view:ModList />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewmodel:DownLoadVM}">
+                            <view:Download />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewmodel:SettingsVM}">
+                            <view:Settings />
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Grid>
+
+
+        </Grid>
+        <Button x:Name="CloseApp" Style="{StaticResource exit_app_button}" Click="CloseApp_Click" />
+
     </Grid>
 </Window>

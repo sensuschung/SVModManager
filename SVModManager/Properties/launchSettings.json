@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SVModManager": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

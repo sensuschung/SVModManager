@@ -8,4 +8,37 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Statics\Images\close2.png" />
+    <None Remove="Statics\Images\close_1.png" />
+    <None Remove="Statics\Images\cps_apps.png" />
+    <None Remove="Statics\Images\cps_apps.svg" />
+    <None Remove="Statics\Images\download.png" />
+    <None Remove="Statics\Images\download.svg" />
+    <None Remove="Statics\Images\Icon1.png" />
+    <None Remove="Statics\Images\setting.png" />
+    <None Remove="Statics\Images\setting.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Statics\Fonts\" />
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Statics\Images\close2.png" />
+    <Resource Include="Statics\Images\close_1.png" />
+    <Resource Include="Statics\Images\cps_apps.png" />
+    <Resource Include="Statics\Images\download.png" />
+    <Resource Include="Statics\Images\Icon1.png" />
+    <Resource Include="Statics\Images\setting.png" />
+  </ItemGroup>
+
 </Project>

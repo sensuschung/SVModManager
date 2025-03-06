@@ -1,0 +1,94 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--Image Icon-->
+    <Style x:Key="ImageIconStyle" TargetType="Image">
+        <Style.Setters>
+            <Setter Property="Source" Value="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=Tag}"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+        </Style.Setters>
+    </Style>
+
+    <!--Navigate Button-->
+    <Style x:Key="NaviBtn" TargetType="RadioButton">
+        <Style.Setters>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="navibtn_border" Width="54" Height="54" BorderThickness="0" CornerRadius="3" >
+                            <Border.Background>
+                                <SolidColorBrush x:Name="navibtn_border_bg" Color="{StaticResource DarkBackgroundColor1}"/>
+                            </Border.Background>
+                            <Grid>
+                                <Image x:Name="naviImage" Style="{StaticResource ImageIconStyle}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--Mouse Enter-->
+                            <EventTrigger SourceName="navibtn_border" RoutedEvent="Border.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="navibtn_border_bg" Storyboard.TargetProperty="Color" From="{StaticResource DarkBackgroundColor1}" To="{StaticResource DarkBackgroundColor2}" Duration="0:0:0.3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <!--Mouse Leave-->
+                            <EventTrigger SourceName="navibtn_border" RoutedEvent="Border.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="navibtn_border_bg" Storyboard.TargetProperty="Color" From="{StaticResource DarkBackgroundColor2}" To="{StaticResource DarkBackgroundColor1}" Duration="0:0:0.3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="navibtn_border" Property="Background" Value="{StaticResource DarkBackgroundBrush2}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="navibtn_border" Property="Background" Value="{StaticResource DarkBackgroundBrush2}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    
+    <!--Close: Icon-->
+    <ImageBrush x:Key="close_app_before" ImageSource="/Statics/Images/close_1.png" Stretch="Uniform"/>
+
+    <ImageBrush x:Key="close_app_after" ImageSource="/Statics/Images/close2.png" Stretch="Uniform"/>
+    
+    <!--Close: Button-->
+    <Style x:Key="exit_app_button" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0,15,15,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="exit_button_border" BorderThickness="0" Background="{StaticResource close_app_before}" ></Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="exit_button_border" Property="Background" Value="{StaticResource close_app_after}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="exit_button_border" Property="Background" Value="{StaticResource close_app_after}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

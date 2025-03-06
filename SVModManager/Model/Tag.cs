@@ -7,12 +7,22 @@ using System.Threading.Tasks;
 
 namespace SVModManager.Model
 {
-    class Tag
+    public class Tag
     {
         [Key]
         [Required]
         public string Name { get; set; }
 
         public string Color { get; set; }
+
+        public Tag()
+        {
+        }
+
+        public Tag(string name, string color)
+        {
+            Name = name;
+            Color = color;
+        }
     }
 }

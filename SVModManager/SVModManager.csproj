@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Statics\Fonts\" />
-    <Folder Include="Data\" />
   </ItemGroup>
 
   <ItemGroup>

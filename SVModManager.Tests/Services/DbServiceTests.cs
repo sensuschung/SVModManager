@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 //测试封装的数据库操作类
-namespace SVModManager.Tests
+ namespace SVModManager.Tests
 {
     [TestClass]
     public class DbServiceTests

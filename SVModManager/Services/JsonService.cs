@@ -38,20 +38,40 @@ namespace SVModManager.Services
         public bool ContainsKey(string key)
         {
             if (_jsonObject == null) return false;
-            return _jsonObject.ContainsKey(key);
+            var keys = key.Split('.');
+            JToken? currentToken = _jsonObject;
+            foreach (var k in keys)
+            {
+                if (currentToken is JObject currentObject && currentObject.TryGetValue(k, out var nextToken))
+                {
+                    currentToken = nextToken;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public string? GetValue(string key)
         {
             if (_jsonObject == null) return null;
-
-            JToken? value;
-            if (_jsonObject.TryGetValue(key, out value))
+            var keys = key.Split('.');
+            JToken? currentToken = _jsonObject;
+            foreach (var k in keys)
             {
-                return value?.ToString();
+                if (currentToken is JObject currentObj && currentObj.TryGetValue(k, out var nextToken))
+                {
+                    currentToken = nextToken;
+                }
+                else
+                {
+                    return null;
+                }
             }
-
-            return null;
+            return currentToken?.ToString();
         }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SVModManager.ViewModel;
+using SVModManager.Services;
 using SVModManager.View;
 using System.Configuration;
 using System.Data;
@@ -26,6 +27,11 @@ namespace SVModManager
             container.AddSingleton<ModListVM>();
             container.AddSingleton<DownLoadVM>();
             container.AddSingleton<SettingsVM>();
+
+            container.AddSingleton<DbService>();
+            container.AddSingleton<FileHandler>();
+            container.AddSingleton<JsonService>();
+            container.AddSingleton<ModService>();
 
             ServiceProvider = container.BuildServiceProvider();
         }

@@ -47,7 +47,8 @@ namespace SVModManager.Services
         }
 
         //查询数据项
-        public List<T> QueryItems<T>() where T : class
+        public List<T> 
+            QueryItems<T>() where T : class
         {
             using var context = new AppDbContext();
             return context.Set<T>().ToList();

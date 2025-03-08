@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,9 +31,9 @@ namespace SVModManager.Data
             if (!optionsBuilder.IsConfigured)
             {
                 // --------------------------- 配置测试环境数据库路径 ---------------------------
-                //string databasePath = @"...";
-                //optionsBuilder.UseSqlite($"Data Source={databasePath}");
-                optionsBuilder.UseSqlite("Data Source=app.db");
+                string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.db");
+                optionsBuilder.UseSqlite($"Data Source={databasePath}");
+                //optionsBuilder.UseSqlite("Data Source=app.db");
             }
         }
 

@@ -41,6 +41,7 @@ namespace SVModManager.Tests
                 Name = "TestMod",
                 Path = "C:\\TestPath",
                 NexusId = 123,
+                Author = "TestAuthor",
                 CreateOn = DateTime.Now,
                 LastModified = DateTime.Now,
                 IsEnabled = true

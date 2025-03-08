@@ -19,6 +19,9 @@ namespace SVModManager.Model
         public string Path { get; set; }
 
         public int? NexusId { get; set; }
+        public string? Author { get; set; }
+        public string? Version { get; set; }
+        public string? Description { get; set; }
 
         public DateTime CreateOn { get; set; }
         public DateTime LastModified { get; set; }
@@ -31,11 +34,14 @@ namespace SVModManager.Model
             Tags = new List<Tag>();
         }
 
-        public Mod(string name, string path, int? id, DateTime createOn, DateTime lastModified, bool isEnabled)
+        public Mod(string name, string path,string?author,string?version,string? description, int? id, DateTime createOn, DateTime lastModified, bool isEnabled)
         {
             Name = name;
             Path = path;
             NexusId = id;
+            Author = author;
+            Version = version;
+            Description = description;
             CreateOn = createOn;
             LastModified = lastModified;
             Tags = new List<Tag>();

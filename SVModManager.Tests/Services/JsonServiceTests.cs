@@ -13,18 +13,22 @@ namespace SVModManager.Tests
         [TestInitialize]
         public void Setup()
         {
-            FileHandler fileHandler = new FileHandler();
+            //FileHandler fileHandler = new FileHandler();
             _jsonService = new JsonService();
 
             // 创建测试的 JSON 文件
-            string jsonContent = @"{
-              'Name': 'Test Mod',
-              'Author': 'Test Author',
-              'Version': '1.0.0',
-              'Description': 'This is a test mod'
-            }";
+        //    string jsonContent = @"{
+        //      'Name': 'Test Mod',
+        //      'Author': 'Test Author',
+        //      'Version': '1.0.0',
+        //      'Description': 'This is a test mod',
+        //      'ContentPackFor': {
+        //        'UniqueID': 'TestMod'
+        //        }
+        //    }";
 
-            fileHandler.WriteAllText(_jsonFilePath, jsonContent);
+        //    fileHandler.WriteAllText(_jsonFilePath, jsonContent);
+        //
         }
 
         [TestMethod]
@@ -38,7 +42,7 @@ namespace SVModManager.Tests
         public void Test_ContainsKey_ReturnsTrue()
         {
             _jsonService.LoadJsonFromFile(_jsonFilePath);
-            bool result = _jsonService.ContainsKey("Name");
+            bool result = _jsonService.ContainsKey("ContentPackFor.UniqueID");
             Assert.IsTrue(result);
         }
 
@@ -47,7 +51,7 @@ namespace SVModManager.Tests
         {
             _jsonService.LoadJsonFromFile(_jsonFilePath);
             string? value = _jsonService.GetValue("Name");
-            Assert.AreEqual("Test Mod", value);
+            Assert.AreEqual("Valley Girls", value);
         }
 
         [TestCleanup]

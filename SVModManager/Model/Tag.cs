@@ -14,15 +14,18 @@ namespace SVModManager.Model
         public string Name { get; set; }
 
         public string Color { get; set; }
+        public ICollection<Mod> Mods { get; set; }
 
         public Tag()
         {
+            Mods = new List<Mod>();
         }
 
         public Tag(string name, string color)
         {
             Name = name;
             Color = color;
+            Mods = new List<Mod>();
         }
     }
 }

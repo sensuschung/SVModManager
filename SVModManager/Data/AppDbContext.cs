@@ -49,11 +49,15 @@ namespace SVModManager.Data
             modelBuilder.Entity<Tag>().HasKey(t => t.Name);
             modelBuilder.Entity<Config>().HasKey(c => c.Name);
 
-            //一对多关系
+            //多对多关系
             modelBuilder.Entity<Mod>()
-                .HasMany(m => m.Tags)
-                .WithOne()
-                .OnDelete(DeleteBehavior.SetNull);
+            .HasMany(m => m.Tags)
+            .WithMany(t => t.Mods)
+            .UsingEntity<Dictionary<string, object>>(
+                "ModTag", // 中间表的名称
+                j => j.HasOne<Tag>().WithMany().OnDelete(DeleteBehavior.Cascade),
+                j => j.HasOne<Mod>().WithMany().OnDelete(DeleteBehavior.Cascade)
+            );
 
             base.OnModelCreating(modelBuilder);
         }

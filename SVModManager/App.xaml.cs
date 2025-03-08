@@ -32,6 +32,7 @@ namespace SVModManager
             container.AddSingleton<FileHandler>();
             container.AddSingleton<JsonService>();
             container.AddSingleton<ModService>();
+            container.AddSingleton<TagService>();
 
             ServiceProvider = container.BuildServiceProvider();
         }

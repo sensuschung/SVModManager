@@ -55,6 +55,20 @@ namespace SVModManager.Services
             }
         }
 
+        public List<Tag> GetAllTags()
+        {
+            return _dbService.QueryTags();
+        }
+
+        public bool isTagExist(string name)
+        {
+            return _dbService.QueryItem<Tag>(m => m.Name == name) != null;
+        }
+
+        public Tag getTagByName(string name)
+        {
+            return _dbService.QueryItem<Tag>(m => m.Name == name);
+        }
 
     }
 }

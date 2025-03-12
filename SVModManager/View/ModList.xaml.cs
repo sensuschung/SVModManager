@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Extensions.DependencyInjection;
+using SVModManager.ViewModel;
 
 namespace SVModManager.View
 {
@@ -23,6 +25,7 @@ namespace SVModManager.View
         public ModList()
         {
             InitializeComponent();
+            DataContext = App.Current.ServiceProvider.GetRequiredService<ModListVM>();
         }
     }
 }

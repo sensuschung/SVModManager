@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SVModManager.Data;
+using SVModManager.Model;
+using System.Linq.Expressions;
 
 // 基础数据库操作
 
@@ -13,10 +15,13 @@ namespace SVModManager.Services
 {
     public class DbService
     {
+
+        private AppDbContext context;
+
         //初始化数据库
         public void InitializeDatabase()
         {
-            using var context = new AppDbContext();
+            context = new AppDbContext();
             context.Database.EnsureCreated();
         }
 
@@ -25,7 +30,6 @@ namespace SVModManager.Services
         //插入数据项
         public void InsertItem<T>(T item) where T : class
         {
-            using var context = new AppDbContext();
             context.Set<T>().Add(item);
             context.SaveChanges();
         }
@@ -33,7 +37,6 @@ namespace SVModManager.Services
         //删除数据项
         public void DeleteItem<T>(T item) where T : class
         {
-            using var context = new AppDbContext();
             context.Set<T>().Remove(item);
             context.SaveChanges();
         }
@@ -41,7 +44,6 @@ namespace SVModManager.Services
         //更新数据项
         public void UpdateItem<T>(T item) where T : class
         {
-            using var context = new AppDbContext();
             context.Set<T>().Update(item);
             context.SaveChanges();
         }
@@ -50,83 +52,72 @@ namespace SVModManager.Services
         public List<T> 
             QueryItems<T>() where T : class
         {
-            using var context = new AppDbContext();
             return context.Set<T>().ToList();
         }
 
         //筛选数据项
         public List<T> QueryItems<T>(Func<T, bool> predicate) where T : class
         {
-            using var context = new AppDbContext();
             return context.Set<T>().Where(predicate).ToList();
         }
 
         //查询单个数据项(可能为空)
         public T? QueryItem<T>(Func<T, bool> predicate) where T : class
         {
-            using var context = new AppDbContext();
             return context.Set<T>().FirstOrDefault(predicate);
         }
 
         //清空数据表
         public void ClearTable<T>() where T : class
         {
-            using var context = new AppDbContext();
             context.Set<T>().RemoveRange(context.Set<T>());
             context.SaveChanges();
         }
 
-        //------------------------------------自定义配置----------------------------------
-        public void InsertItem<T>(T item, DbContextOptions<AppDbContext> options) where T : class
+        public List<Tag> GetTagsForMod(string modName)
         {
-            using var context = new AppDbContext(options);
-            context.Set<T>().Add(item);
-            context.SaveChanges();
+            var mod = context.Mods.Include(m => m.Tags).FirstOrDefault(m => m.Name == modName);
+            return mod?.Tags.ToList() ?? new List<Tag>();
         }
 
-        // 删除数据项
-        public void DeleteItem<T>(T item, DbContextOptions<AppDbContext> options) where T : class
+        public List<Mod> GetModsForTag(string tagName)
         {
-            using var context = new AppDbContext(options);
-            context.Set<T>().Remove(item);
-            context.SaveChanges();
+            var tag = context.Tags.Include(t => t.Mods).FirstOrDefault(t => t.Name == tagName);
+            return tag?.Mods.ToList() ?? new List<Mod>();
         }
 
-        // 更新数据项
-        public void UpdateItem<T>(T item, DbContextOptions<AppDbContext> options) where T : class
+        public List<Mod> QueryMods()
         {
-            using var context = new AppDbContext(options);
-            context.Set<T>().Update(item);
-            context.SaveChanges();
+            return context.Mods.Include(m => m.Tags).ToList(); 
         }
 
-        // 查询数据项
-        public List<T> QueryItems<T>(DbContextOptions<AppDbContext> options) where T : class
+        public List<Mod> QueryMods(Func<Mod, bool> predicate)
         {
-            using var context = new AppDbContext(options);
-            return context.Set<T>().ToList();
+            return context.Mods.Include(m => m.Tags).Where(predicate).ToList();
         }
 
-        // 筛选数据项
-        public List<T> QueryItems<T>(Func<T, bool> predicate, DbContextOptions<AppDbContext> options) where T : class
+        public Mod QueryMod(Expression<Func<Mod, bool>> predicate)
         {
-            using var context = new AppDbContext(options);
-            return context.Set<T>().Where(predicate).ToList();
+            var mod = context.Mods.Include(m => m.Tags).Where(predicate).FirstOrDefault();
+            return mod;
         }
 
-        // 查询单个数据项(可能为空)
-        public T? QueryItem<T>(Func<T, bool> predicate, DbContextOptions<AppDbContext> options) where T : class
+        public List<Tag> QueryTags()
         {
-            using var context = new AppDbContext(options);
-            return context.Set<T>().FirstOrDefault(predicate);
+            return context.Tags.Include( t => t.Mods).ToList();
         }
 
-        // 清空数据表
-        public void ClearTable<T>(DbContextOptions<AppDbContext> options) where T : class
+        public Tag QueryTag(Expression<Func<Tag, bool>> predicate)
         {
-            using var context = new AppDbContext(options);
-            context.Set<T>().RemoveRange(context.Set<T>());
-            context.SaveChanges();
+            var tag = context.Tags.Include(m => m.Mods).Where(predicate).FirstOrDefault();
+            return tag;
         }
+
+        public void updateDataContext()
+        {
+            context = new AppDbContext();
+            context.Database.EnsureCreated();
+        }
+
     }
 }

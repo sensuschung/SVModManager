@@ -103,15 +103,15 @@ namespace SVModManager.Services
             return null;
         }
 
-        public bool autoGetModPath()
+        public string? autoGetModPath()
         {
             string? modPath = detectGetModPath();
             if (modPath != null)
             {
                 setStardewModPath(modPath);
-                return true;
+                return modPath;
             }
-            return false;
+            return null;
         }
 
     }

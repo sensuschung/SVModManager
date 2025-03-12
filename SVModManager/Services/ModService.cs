@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Microsoft.EntityFrameworkCore;
+using SVModManager.Data;
 
 namespace SVModManager.Services
 {
@@ -129,17 +130,17 @@ namespace SVModManager.Services
 
         public List<Mod> getAllMods()
         {
-            return _dbService.QueryItems<Mod>();
+            return _dbService.QueryMods();
         }
 
         public Mod? GetModByName(string name)
         {
-            return _dbService.QueryItem<Mod>(m => m.Name == name);
+            return _dbService.QueryMod(m => m.Name == name);
         }
 
         public void AddMod(Mod mod)
         {
-            var existingMod = _dbService.QueryItem<Mod>(m => m.Name == mod.Name);
+            var existingMod = _dbService.QueryMod(m => m.Name == mod.Name);
             if (existingMod == null)
             {
                 _dbService.InsertItem(mod);
@@ -148,7 +149,7 @@ namespace SVModManager.Services
 
         public void updateNexusId(string modName, int nexusId)
         {
-            var mod = _dbService.QueryItem<Mod>(m => m.Name == modName);
+            var mod = _dbService.QueryMod(m => m.Name == modName);
             if (mod != null)
             {
                 mod.NexusId = nexusId;
@@ -163,7 +164,7 @@ namespace SVModManager.Services
 
         public void enableMod(string modName)
         {
-            var mod = _dbService.QueryItem<Mod>(m => m.Name == modName);
+            var mod = _dbService.QueryMod(m => m.Name == modName);
             if (mod != null && mod.Path != null)
             {
                 string directoryName = Path.GetFileName(mod.Path);
@@ -180,7 +181,7 @@ namespace SVModManager.Services
 
         public void disableMod(string modName)
         {
-            var mod = _dbService.QueryItem<Mod>(m => m.Name == modName);
+            var mod = _dbService.QueryMod(m => m.Name == modName);
             if (mod != null && mod.Path != null)
             {
                 string directoryName = Path.GetFileName(mod.Path);
@@ -198,7 +199,7 @@ namespace SVModManager.Services
 
         public void updateTagsToMod(string modName,List<Tag> tags)
         {
-            var mod = _dbService.QueryItem<Mod>(m => m.Name == modName);
+            var mod = _dbService.QueryMod(m => m.Name == modName);
             if (mod != null)
             {
                 mod.Tags = tags;
@@ -208,13 +209,13 @@ namespace SVModManager.Services
 
         public bool isModEnabled(string modName)
         {
-            var mod = _dbService.QueryItem<Mod>(m => m.Name == modName);
+            var mod = _dbService.QueryMod(m => m.Name == modName);
             return mod != null && mod.IsEnabled;
         }
 
         public bool isModHasTag(string modName, string tagName)
         {
-            var mod = _dbService.QueryItem<Mod>(m => m.Name == modName);
+            var mod = _dbService.QueryMod(m => m.Name == modName);
             return mod != null && mod.Tags != null && mod.Tags.Any(t => t.Name == tagName);
         }
 
@@ -242,5 +243,48 @@ namespace SVModManager.Services
             _dbService.ClearTable<Mod>();
         }
 
+        public List<Mod> getModsWithoutTag()
+        {
+            return _dbService.QueryMods(m => m.Tags.Count == 0);
+        }
+
+        public List<Mod> getModsByTag(string tagName)
+        {
+            return _dbService.GetModsForTag(tagName);
+        }
+
+        public void addTagToMod(string modName,Tag tag)
+        {
+            var mod = _dbService.QueryMod(m => m.Name == modName);
+            if (mod != null)
+            {
+                if (mod.Tags == null)
+                {
+                    mod.Tags = new List<Tag>();
+                }
+                mod.Tags.Add(tag);
+                _dbService.UpdateItem(mod);
+            }
+        }
+
+        public void removeTagFromMod(string modName, string tagName)
+        {
+            var mod = _dbService.QueryMod(m => m.Name == modName);
+            if (mod != null && mod.Tags != null)
+            {
+                var tag = mod.Tags.FirstOrDefault(t => t.Name == tagName);
+                if (tag != null)
+                {
+                    mod.Tags.Remove(tag);
+                    _dbService.UpdateItem(mod);
+                    tag.OnPropertyChanged(nameof(Tag.DisplayName));
+                }
+            }
+        }
+
+        public void updateDb()
+        {
+            _dbService.updateDataContext();
+        }
     }
 }

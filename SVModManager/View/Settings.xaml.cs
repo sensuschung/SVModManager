@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SVModManager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,34 @@ namespace SVModManager.View
         public Settings()
         {
             InitializeComponent();
+            DataContext = App.Current.ServiceProvider.GetRequiredService<SettingsVM>();
         }
+
+        private void APITextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                APITextBlock.Visibility = Visibility.Collapsed;
+                APITextBox.Visibility = Visibility.Visible;     
+                APITextBox.Focus();                              
+            }
+        }
+
+        private void APITextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            APITextBlock.Visibility = Visibility.Visible;
+            APITextBox.Visibility = Visibility.Collapsed;
+        }
+
+        private void APITextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                APITextBlock.Visibility = Visibility.Visible;
+                APITextBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
     }
 }

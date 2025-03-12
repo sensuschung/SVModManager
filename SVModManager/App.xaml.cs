@@ -40,6 +40,12 @@ namespace SVModManager
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            var dbService = ServiceProvider.GetRequiredService<DbService>();
+            dbService.InitializeDatabase();
+
+            var configService = ServiceProvider.GetRequiredService<ConfigService>();
+            configService.InitConfig();
+
             MainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             MainWindow.Show();
         }

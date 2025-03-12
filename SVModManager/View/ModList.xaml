@@ -8,6 +8,80 @@
       d:DesignHeight="700" d:DesignWidth="796">
 
     <Grid>
-        <TextBlock Foreground="White" Text="ModList"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#30FFFFFF" BorderThickness="0,0,1,0" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Height="40" 
+                            Width="150" 
+                            Background="#00FFFFFF" 
+                            CornerRadius="10"
+                            Grid.Row="0" 
+                            BorderThickness="2" 
+                            BorderBrush="#20FFFFFF"
+                            Style="{StaticResource tag_button_border}">
+                    <Button Background="Transparent" 
+                                BorderThickness="0"
+                                Style="{StaticResource text_button}"
+                                Command="{Binding AddTagCommand}">
+                        <TextBlock Style="{StaticResource TitleTextStyle_2}" Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                                添加标签
+                        </TextBlock>
+                    </Button>
+                </Border>
+                <StackPanel Grid.Row="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Template="{StaticResource MyScrollViewer}">
+                        <StackPanel>
+                            <Button Style="{StaticResource TagWithDotStyle}" Command="{Binding TagClickCommand}"
+                                  CommandParameter="全部">
+                                <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
+                                    <Ellipse Width="10" Height="10" Fill="White" Margin="20,0,15,0"/>
+                                    <TextBlock Text="全部" Style="{StaticResource BodyTextStyle}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource TagWithDotStyle}" Command="{Binding TagClickCommand}"
+                                  CommandParameter="未分类">
+                                <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
+                                    <Ellipse Width="10" Height="10" Fill="White" Margin="20,0,15,0"/>
+                                    <TextBlock Text="未分类" Style="{StaticResource BodyTextStyle}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <ItemsControl ItemsSource="{Binding Tags}" ItemTemplate="{StaticResource TagWithDotTemplate}" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <WrapPanel VerticalAlignment="Center" Margin="30,20,0,0">
+                    <TextBlock Style="{StaticResource TitleTextStyle_2}" Text="{Binding CurrentSelectedTag}"/>
+                    <TextBlock Style="{StaticResource TitleTextStyle_2}" Text=" 模组列表"/>
+                </WrapPanel>
+                <Border Grid.Row="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Template="{StaticResource MyScrollViewer}">
+                        <WrapPanel>
+                            <ItemsControl ItemsSource="{Binding CurrentMods}" ItemTemplate="{StaticResource ModCards}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

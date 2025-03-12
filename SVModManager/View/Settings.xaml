@@ -5,10 +5,56 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SVModManager.View"
              mc:Ignorable="d" 
+             Background="Transparent"
              d:DesignHeight="700" d:DesignWidth="796">
     <Grid>
-
-        <TextBlock Foreground="White" Text="Settings"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource TitleTextStyle_1}" Text="设置" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
+        <Border Grid.Row="3" Margin="40,20,40,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border CornerRadius="10" Style="{StaticResource config_border}" Grid.Row="0">
+                    <WrapPanel VerticalAlignment="Center">
+                        <TextBlock Style="{StaticResource BodyTextStyle}" Text="模组文件夹:" Margin="40,0,10,0"/>
+                        <TextBlock Style="{StaticResource UnderlineBodyTextStyle}" Text="{Binding ModPath}" Width="470"/>
+                        <WrapPanel VerticalAlignment="Center">
+                            <Button Command="{Binding AutoSetModPathCommand}" Style="{StaticResource text_button}">
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" >检测</TextBlock>
+                            </Button>
+                            <Button Style="{StaticResource text_button}" Command="{Binding SelectModPathCommand}">
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" >设置</TextBlock>
+                            </Button>
+                        </WrapPanel>
+                    </WrapPanel>
+                </Border>
+                <Border CornerRadius="10" Style="{StaticResource config_border}" Grid.Row="1">
+                    <WrapPanel VerticalAlignment="Center">
+                        <TextBlock Style="{StaticResource BodyTextStyle}" Text="NexusAPI:" Margin="40,0,10,0"/>
+                        <Grid>
+                            <TextBlock x:Name="APITextBlock" 
+                                       Style="{StaticResource UnderlineBodyTextStyle}" 
+                                       Text="{Binding NexusAPI}" 
+                                       MouseLeftButtonDown="APITextBlock_MouseLeftButtonDown" 
+                                       Width="470"/>
+                            <TextBox x:Name="APITextBox" 
+                                     Width="470" Visibility="Collapsed" 
+                                     KeyDown="APITextBox_KeyDown" 
+                                     LostFocus="APITextBox_LostFocus" 
+                                     Text="{Binding NexusAPI,UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource EditableTextBlock}" />
+                        </Grid>
+                    </WrapPanel>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

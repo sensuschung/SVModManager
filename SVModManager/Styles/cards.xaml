@@ -1,0 +1,121 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:converters="clr-namespace:SVModManager.Converters"
+                    >
+
+    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+    <!-- hardcode tags -->
+    <Style x:Key="TagWithDotStyle" TargetType="Button">
+        <Setter Property="Background" Value="#00000000" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="tag_button_border" CornerRadius="10">
+                        <Border.Background>
+                            <SolidColorBrush x:Name="tag_button_border_brush"  Color="#00000000"/>
+                        </Border.Background>
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tag_button_border_brush" Storyboard.TargetProperty="Color" From="#00000000" To="#40000000" Duration="0:0:0.3" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tag_button_border_brush" Storyboard.TargetProperty="Color" From="#40000000" To="#00000000" Duration="0:0:0.3" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- tag with names-->
+    <DataTemplate x:Key="TagWithDotTemplate">
+        <Button Style="{StaticResource TagWithDotStyle}" 
+            Command="{Binding DataContext.TagClickCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+            CommandParameter="{Binding Name}">
+            <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
+                <Ellipse Width="10" Height="10" Fill="{Binding Color}" Margin="20,0,15,0"/>
+                <TextBlock Text="{Binding DisplayName}" Style="{StaticResource BodyTextStyle}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+    </DataTemplate>
+
+    <Style x:Key="ModCard" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                        <Border Height="120" Width="120" CornerRadius="8" Margin="20,20,20,20">
+                            <Border.Background>
+                                <SolidColorBrush x:Name="card_background" Color="#20425e82"/>
+                            </Border.Background>
+                            <TextBlock Text="{Binding Name}" 
+                                       Style="{StaticResource BodyTextStyle}" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Width="100" 
+                                       TextWrapping ="Wrap"
+                                       TextAlignment="Center"/>
+                        </Border>
+                        <Border Background="#50000000" CornerRadius="8" Margin="20,20,20,20" Visibility="{Binding IsEnabled,Converter={StaticResource BooleanToVisibilityConverter}}">
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="ModCards">
+        <Button Style="{StaticResource ModCard}"
+                Command="{Binding DataContext.ShowModDetailsCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CommandParameter="{Binding}">
+        </Button>
+    </DataTemplate>
+
+    <Style x:Key="TagCard" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border CornerRadius="3" Margin="3,8,3,8" Padding="4,2,4,2">
+                        <Border.Background>
+                            <SolidColorBrush x:Name="tag_bg" Color="{Binding Color}" Opacity="0.5"/>
+                        </Border.Background>
+                        <TextBlock Text="{Binding Name}" 
+                                   Style="{StaticResource BodyTextStyle}" 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <DataTemplate x:Key="TagCards">
+        <Button Style="{StaticResource TagCard}" Command="{Binding RemoveTagCommand,RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
+        </Button>
+    </DataTemplate>
+    
+
+
+
+
+</ResourceDictionary>

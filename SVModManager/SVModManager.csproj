@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Statics\Fonts\FZXH.ttf" />
+    <None Remove="Statics\Fonts\Iansui-Regular.ttf" />
     <None Remove="Statics\Images\close2.png" />
     <None Remove="Statics\Images\close_1.png" />
     <None Remove="Statics\Images\cps_apps.png" />
@@ -26,13 +28,23 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Core" Version="1.1.5" />
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Statics\Fonts\FZXH.ttf" />
+    <Resource Include="Statics\Fonts\Iansui-Regular.ttf" />
     <Resource Include="Statics\Images\close2.png" />
     <Resource Include="Statics\Images\close_1.png" />
     <Resource Include="Statics\Images\cps_apps.png" />

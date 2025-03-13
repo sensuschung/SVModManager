@@ -42,7 +42,6 @@
                     </Grid.RowDefinitions>
                     <Image Source="/Statics/Images/Icon1.png" Height="35" Grid.Row="1"/>
                     <module:NaviBtn Style="{StaticResource NaviBtn}" Tag="/Statics/Images/cps_apps.png" x:Name="list_btn" IsChecked="True" Grid.Row="2" Checked="list_btn_Checked"/>
-                    <module:NaviBtn Style="{StaticResource NaviBtn}" Tag="/Statics/Images/download.png" x:Name="download_btn" Grid.Row="3"/>
                     <module:NaviBtn Style="{StaticResource NaviBtn}" Tag="/Statics/Images/setting.png" x:Name="settings_btn" Grid.Row="5"/>
                 </Grid>
             </Grid>

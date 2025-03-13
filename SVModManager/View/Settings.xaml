@@ -20,6 +20,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="120"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border CornerRadius="10" Style="{StaticResource config_border}" Grid.Row="0">
@@ -54,6 +55,18 @@
                         </Grid>
                     </WrapPanel>
                 </Border>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBlock Style="{StaticResource BodyTextStyle}" Text="注：若无Mods文件夹，请先在Nexus上安装SMAPI，以保证Mods能够正常加载使用" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextWrapping="Wrap" Margin="10,0,10,20"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Image Source="/Statics/Images/image.png" Height="200" Width="200" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,30"/>
+                    </Grid>
+                </Grid>
             </Grid>
         </Border>
     </Grid>

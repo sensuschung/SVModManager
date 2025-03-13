@@ -35,8 +35,8 @@
                         </TextBlock>
                     </Button>
                 </Border>
-                <StackPanel Grid.Row="1">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Template="{StaticResource MyScrollViewer}">
+                <Grid Grid.Row="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Template="{StaticResource MyScrollViewer}">
                         <StackPanel>
                             <Button Style="{StaticResource TagWithDotStyle}" Command="{Binding TagClickCommand}"
                                   CommandParameter="全部">
@@ -55,7 +55,7 @@
                             <ItemsControl ItemsSource="{Binding Tags}" ItemTemplate="{StaticResource TagWithDotTemplate}" />
                         </StackPanel>
                     </ScrollViewer>
-                </StackPanel>
+                </Grid>
             </Grid>
         </Border>
         <Border Grid.Column="1">

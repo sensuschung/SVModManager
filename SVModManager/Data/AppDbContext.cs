@@ -31,7 +31,7 @@ namespace SVModManager.Data
             if (!optionsBuilder.IsConfigured)
             {
                 // --------------------------- 配置测试环境数据库路径 ---------------------------
-                string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.db");
+                string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "app.db");
                 optionsBuilder.UseSqlite($"Data Source={databasePath}");
                 //optionsBuilder.UseSqlite("Data Source=app.db");
             }

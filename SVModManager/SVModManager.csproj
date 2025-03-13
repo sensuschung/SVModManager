@@ -18,6 +18,7 @@
     <None Remove="Statics\Images\download.png" />
     <None Remove="Statics\Images\download.svg" />
     <None Remove="Statics\Images\Icon1.png" />
+    <None Remove="Statics\Images\image.png" />
     <None Remove="Statics\Images\setting.png" />
     <None Remove="Statics\Images\setting.svg" />
   </ItemGroup>
@@ -50,6 +51,7 @@
     <Resource Include="Statics\Images\cps_apps.png" />
     <Resource Include="Statics\Images\download.png" />
     <Resource Include="Statics\Images\Icon1.png" />
+    <Resource Include="Statics\Images\image.png" />
     <Resource Include="Statics\Images\setting.png" />
   </ItemGroup>
 
